@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"kabesma/gitpoison/internal/poison"
 	"os"
 	"os/exec"
 	"strings"
@@ -9,12 +10,16 @@ import (
 	"github.com/rivo/tview"
 )
 
-type lane struct {
+type Lane struct {
 	pages *tview.Pages
 }
 
 func main() {
-	l := lane{}
+	poison.Execute()
+}
+
+func maintenance() {
+	l := Lane{}
 	app := tview.NewApplication()
 	grid := tview.NewGrid()
 
@@ -89,7 +94,7 @@ func CreateLogView() *tview.TextView {
 	return logView
 }
 
-func (l *lane) CreateStatusView() *tview.List {
+func (l *Lane) CreateStatusView() *tview.List {
 	list := tview.NewList().ShowSecondaryText(false)
 
 	status := GetGitStatus()
@@ -109,7 +114,7 @@ func colorizeStatusEntry(statusEntry string) string {
 	return statusEntry
 }
 
-func (l *lane) createModalFunc(item string) func() {
+func (l *Lane) createModalFunc(item string) func() {
 	return func() {
 		modal := tview.NewModal().
 			SetText(fmt.Sprintf("Selected Action for this file :\n %s", item)).

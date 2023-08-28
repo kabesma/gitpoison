@@ -1,7 +1,10 @@
 # GitPoison - Command Line Interface for Git in Go
-
-![GitPoison Logo](assets/GitPoisonSmall.png)
-
+<p align="center">
+[![wakatime](https://wakatime.com/badge/user/20b45d50-96e3-4927-8a2f-837aff6defc5/project/b4d4676a-8a35-4854-b7b1-49dcb0c36101.svg)](https://wakatime.com/badge/user/20b45d50-96e3-4927-8a2f-837aff6defc5/project/b4d4676a-8a35-4854-b7b1-49dcb0c36101)
+</p>
+<p align="center">
+  <img src="assets/GitPoisonSmall.png" />
+</p>
 GitPoison is an open-source command-line interface (CLI) tool developed in Go (Golang) to simplify and enhance your Git workflow. With GitPoison, you can streamline and expedite common Git commands, making version control and collaboration easier for developers.
 
 ## Features
