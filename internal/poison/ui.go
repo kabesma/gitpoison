@@ -18,8 +18,9 @@ type Window struct {
 	Commits       *tview.List
 	Branches      *tview.List
 	Stashes       *tview.List
-	Content       *tview.TextView
-	Status        *tview.TextView
+	Content       *tview.List
+	// Content       *tview.TextView
+	Status *tview.TextView
 
 	// Layer Page
 	MainPage *tview.Flex
