@@ -6,93 +6,43 @@
 <p align="center">
 <a href="https://wakatime.com/badge/user/20b45d50-96e3-4927-8a2f-837aff6defc5/project/b4d4676a-8a35-4854-b7b1-49dcb0c36101"><img src="https://wakatime.com/badge/user/20b45d50-96e3-4927-8a2f-837aff6defc5/project/b4d4676a-8a35-4854-b7b1-49dcb0c36101.svg" alt="wakatime"></a>
 </p>
-GitPoison is an open-source command-line interface (CLI) tool developed in Go (Golang) to simplify and enhance your Git workflow. With GitPoison, you can streamline and expedite common Git commands, making version control and collaboration easier for developers.
 
-## Features
+## Description
+This is a project that is currently under development. The project is aimed at makes it easier for developers to use Simple Git.
 
-- **Simplified Commands**: GitPoison provides simplified commands for commonly used Git operations, reducing the need to remember complex syntax.
+![gitpoison screenshot](assets/Screenshot.png "GitPoison : Simple Git Using CLI")
 
-- **Interactive Mode**: Use the interactive mode to guide you through more complex operations, helping you make the right choices at each step.
 
-- **Custom Commands**: Define your own custom commands and shortcuts to fit your specific workflow and preferences.
+## Status
+This project is currently in the development phase. We are working diligently to implement the planned features.
 
-- **Enhanced Output**: GitPoison offers improved output formatting, making it easier to understand the status of your repository at a glance.
+## Planned Features
+- [x] Show All Command Git.
+- [ ] Git Add
+- [ ] Git Commit
+- [ ] Git Git Stash pop
+- [ ] Etc...
 
-- **Effortless Installation**: Installing GitPoison is quick and straightforward, thanks to its Go-based executable.
+## Technologies Used
+- [Golang](https://go.dev/): Go Language
+- [Tview](https://github.com/rivo/tview): Terminal UI library with rich, interactive widgets.
 
-## Installation
+## Contribution
+We are very open to contributions from the community. If you'd like to contribute, you can open an issue to let us know about the changes you're planning, or you can submit a pull request.
 
-Follow these steps to install GitPoison:
+## How to Run the Project
+1. Pull Request main
+2. go run main
 
-1. **Prerequisites**: Ensure you have Go (Golang) installed on your system.
+Make sure you have the [required prerequisites](link to prerequisites documentation) before running the project.
 
-2. **Clone the Repository**: Clone this repository to your local machine.
+## Further Do
+You can find the complete documentation at [project documentation](link to documentation).
 
-   ```sh
-   git clone https://github.com/kabesma/gitpoison.git
-   ```
-
-3. **Build the Executable**: Navigate to the repository's directory and build the executable.
-
-   ```sh
-   cd gitpoison
-   go build -o gitpoison
-   ```
-
-4. **Add to PATH**: Optionally, you can move the generated `gitpoison` executable to a directory included in your system's `PATH` variable to use GitPoison globally.
-
-## Usage
-
-GitPoison offers a set of simplified commands to make your Git interactions more efficient. Here are some examples:
-
-- **Basic Commands**:
-  ```sh
-  gitpoison status
-  gitpoison commit -m "Your commit message"
-  gitpoison pull origin main
-  ```
-
-- **Interactive Mode**:
-  ```sh
-  gitpoison interactive
-  ```
-
-- **Custom Commands**:
-  ```sh
-  gitpoison alias create acp 'add -A && commit -m "Quick commit" && push origin main'
-  gitpoison acp
-  ```
-
-For detailed information about available commands and options, you can run:
-
-```sh
-gitpoison help
-```
-
-## Contributing
-
-Contributions to GitPoison are welcomed and encouraged! Here's how you can get involved:
-
-1. Fork the repository and create a new branch.
-
-2. Make your enhancements or bug fixes.
-
-3. Test your changes thoroughly.
-
-4. Commit your changes with descriptive messages.
-
-5. Push your changes to your forked repository.
-
-6. Open a pull request, describing the changes you've made.
-
-Please ensure your pull requests adhere to our [Code of Conduct](CODE_OF_CONDUCT.md) and [Contribution Guidelines](CONTRIBUTING.md).
-
-## License
-
-GitPoison is released under the [MIT License](LICENSE).
+## Contact
+If you have any questions or further feedback, you can reach out to us via [email](info@kabesma.org) or through social media: [Twitter](#), [Facebook](https://www.facebook.com/kabesma.org).
 
 ---
 
-Simplify your Git workflow with GitPoison! If you encounter any issues or have suggestions for improvements, feel free to [open an issue](https://github.com/yourusername/gitpoison/issues).
+Please note that this project is still actively under development, and some information above might change as the development progresses. We appreciate your interest and support!
 
-*Disclaimer: GitPoison is not affiliated with or endorsed by Git or any related organizations.*
