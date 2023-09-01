@@ -1,6 +1,6 @@
 # GitPoison - Command Line Interface for Git in Go
 <p align="center">
-  <img src="assets/GitPoisonSmall.png" />
+  <img src="assets/GitPoison-Small.png" />
 </p>
 
 <p align="center">
