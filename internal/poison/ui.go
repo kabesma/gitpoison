@@ -24,4 +24,7 @@ type Window struct {
 
 	// Layer Page
 	MainPage *tview.Flex
+
+	// Mode Focus
+	FocusMode bool
 }
