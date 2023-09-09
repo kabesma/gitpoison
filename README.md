@@ -17,10 +17,12 @@ This is a project that is currently under development. The project is aimed at m
 This project is currently in the development phase. We are working diligently to implement the planned features.
 
 ## Planned Features
-- [x] Show All Command Git.
-- [x] Git Add
-- [ ] Git Commit
-- [ ] Git Git Stash pop
+- [x] Show Basic Command Git. (git log, git branch)
+- [x] git add
+- [x] git restore
+- [x] git stash save
+- [ ] git commit
+- [ ] git stash pop
 - [ ] Etc...
 
 ## Technologies Used
@@ -34,10 +36,10 @@ We are very open to contributions from the community. If you'd like to contribut
 1. Pull Request main
 2. go run main
 
-Make sure you have the [required prerequisites](link to prerequisites documentation) before running the project.
+Make sure you have the [required prerequisites](#) before running the project.
 
 ## Further Do
-You can find the complete documentation at [project documentation](link to documentation).
+You can find the complete documentation at [project documentation](#).
 
 ## Contact
 If you have any questions or further feedback, you can reach out to us via [email](info@kabesma.org) or through social media: [Twitter](#), [Facebook](https://www.facebook.com/kabesma.org).
