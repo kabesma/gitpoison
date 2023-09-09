@@ -39,7 +39,8 @@ func cmdGitStatus() []string {
 
 	status := strings.Split(string(output), "\n")
 	for i, item := range status {
-		status[i] = colorizeStatusEntry(item)
+		// status[i] = item
+		status[i] = themeColorSourceControl(item)
 	}
 
 	return status
@@ -56,7 +57,7 @@ func cmdGitBranch() []string {
 
 	status := strings.Split(string(output), "\n")
 	for i, item := range status {
-		status[i] = colorizeBranchEntry(item)
+		status[i] = themeColorBranch(item)
 	}
 
 	return status
@@ -139,4 +140,50 @@ func cmdGitAddItem(item string) string {
 	}
 
 	return "Error executing 'git add'"
+}
+
+func cmdGitRestoreStaged(item string) string {
+	if item == "All" {
+		cmd := exec.Command("git", "restore", "--staged", ".")
+		output, err := cmd.CombinedOutput()
+		if err != nil {
+			return "Error executing 'git restore .'\n command : " + err.Error()
+		}
+		return "You have restored " + item + "\n" + string(output)
+	}
+
+	split := strings.SplitN(item, " ", 2)
+	if len(split) == 2 {
+		cmd := exec.Command("git", "restore", "--staged", split[1])
+		output, err := cmd.CombinedOutput()
+		if err != nil {
+			return "Error executing 'git restore --staged " + split[1] + "'\n command : " + err.Error()
+		}
+		return "You have restored " + item + "\n" + string(output)
+	}
+
+	return "Error executing 'git restore'"
+}
+
+func cmdGitRestoreChanged(item string) string {
+	if item == "All" {
+		cmd := exec.Command("git", "restore", ".")
+		output, err := cmd.CombinedOutput()
+		if err != nil {
+			return "Error executing 'git restore .'\n command : " + err.Error()
+		}
+		return "You have restored " + item + "\n" + string(output)
+	}
+
+	split := strings.SplitN(item, " ", 2)
+	if len(split) == 2 {
+		cmd := exec.Command("git", "restore", split[1])
+		output, err := cmd.CombinedOutput()
+		if err != nil {
+			return "Error executing 'git restore " + split[1] + "'\n command : " + err.Error()
+		}
+		return "You have restored " + item + "\n" + string(output)
+	}
+
+	return "Error executing 'git restore'"
 }

@@ -7,13 +7,21 @@ package poison
 func (w *Window) buttonModalSourceControl(buttonLabel, item string) (str string, err error) {
 	switch buttonLabel {
 	case "Cancel":
+		w.LoadData()
 		w.Pages.ShowPage("page1")
-		w.Pages.HidePage("modal")
+		w.Pages.HidePage("modalBasicGit")
 	case "Add":
 		cmd := cmdGitAddItem(item)
-		w.createModalAddItem(cmd)
-		w.Pages.HidePage("modal")
+		w.createModalOk(cmd)
+		w.Pages.HidePage("modalBasicGit")
+	case "Restore":
+		restore := cmdGitRestoreStaged(item)
+		w.createModalOk(restore)
+		w.Pages.HidePage("modalBasicGit")
 	case "Discard":
+		restore := cmdGitRestoreChanged(item)
+		w.createModalOk(restore)
+		w.Pages.HidePage("modalBasicGit")
 	case "Diff":
 	}
 	return
@@ -24,7 +32,7 @@ func (w *Window) buttonModalAddItem(buttonLabel string) (str string, err error) 
 	case "Oke":
 		w.LoadData()
 		w.Pages.ShowPage("page1")
-		w.Pages.HidePage("modalAddItem")
+		w.Pages.HidePage("modalOk")
 	}
 	return
 }

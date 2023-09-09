@@ -35,7 +35,7 @@ func (w *Window) setupKeyboard() {
 		case KeyMapping[KeyStatus]:
 			w.setFocus(w.Status)
 		case tcell.KeyCtrlO:
-			w.createModalSelected("All")
+			w.createModalSelected("All", []string{"Add", "Discard", "Diff", "Cancel"})
 		case tcell.KeyCtrlR:
 			w.LoadData()
 		// case tcell.KeyCtrlF:

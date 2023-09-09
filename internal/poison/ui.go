@@ -8,11 +8,11 @@ import "github.com/rivo/tview"
 
 type Window struct {
 	// Main Layout
-	App          *tview.Application
-	Pages        *tview.Pages
-	Grid         *tview.Grid
-	Modal        *tview.Modal
-	ModalAddItem *tview.Modal
+	App           *tview.Application
+	Pages         *tview.Pages
+	Grid          *tview.Grid
+	ModalBasicGit *tview.Modal
+	ModalOk       *tview.Modal
 
 	// Frame Screen
 	SourceControl *tview.List
