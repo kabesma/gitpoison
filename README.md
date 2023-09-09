@@ -18,7 +18,7 @@ This project is currently in the development phase. We are working diligently to
 
 ## Planned Features
 - [x] Show All Command Git.
-- [ ] Git Add
+- [x] Git Add
 - [ ] Git Commit
 - [ ] Git Git Stash pop
 - [ ] Etc...
