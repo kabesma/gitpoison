@@ -17,15 +17,10 @@ type (
 )
 
 const (
-	// KeySourcesOp is the operation corresponding to the activation of the Sources view.
 	KeySourcesControl KeyOp = iota
-	// KeySchemasOp is the operation corresponding to the activation of the Schemas view.
 	KeyCommits
-	// KeyTablesOp is the operation corresponding to the activation of the Tables view.
 	KeyBranches
-	// KeyPreviewOp is the operation corresponding to the activation of the Preview view.
 	KeyStashes
-	// KeyQyOp is the operation corresponding to the activation of the Query view.
 	KeyContent
 	KeyStatus
 )
@@ -33,7 +28,7 @@ const (
 var (
 	// KeyMapping maps keyboard operations to their hotkeys. In the future, this part can be customized by the user configuration.
 	KeyMapping = map[KeyOp]tcell.Key{
-		KeySourcesControl: tcell.KeyCtrlA,
+		KeySourcesControl: tcell.KeyCtrlX,
 		KeyCommits:        tcell.KeyCtrlS,
 		KeyBranches:       tcell.KeyCtrlD,
 		KeyStashes:        tcell.KeyCtrlE,
@@ -49,18 +44,17 @@ var (
 	TitleStatus         = fmt.Sprintf("STATUS [ %s ]", tcell.KeyNames[KeyMapping[KeyStatus]])
 )
 
-func Execute() {
+func Execute() *Window {
 	w := Window{}
 
 	w.App = tview.NewApplication()
 	w.Grid = tview.NewGrid()
 
-	w.SourceControl = w.CreateList(cmdGitStatus, w.createModalSourceControl)
-	w.Commits = w.CreateList(cmdGitLogCommit, nil)
-	w.Branches = w.CreateList(cmdGitBranch, nil)
-	w.Stashes = w.CreateList(cmdGitStash, nil)
-
-	w.Content = w.CreateList(cmdGitLogGraph, nil)
+	w.SourceControl = tview.NewList().ShowSecondaryText(false)
+	w.Commits = tview.NewList().ShowSecondaryText(false)
+	w.Branches = tview.NewList().ShowSecondaryText(false)
+	w.Stashes = tview.NewList().ShowSecondaryText(false)
+	w.Content = tview.NewList().ShowSecondaryText(false)
 
 	w.Status = w.CreateView(cmdGitBranchCurrent)
 	// tview.NewTextView().
@@ -98,10 +92,59 @@ func Execute() {
 		AddItem(w.Grid, 0, 1, true)
 
 	w.setupKeyboard()
+	w.LoadData()
 	w.Pages = tview.NewPages().
 		AddPage("MainPage", w.MainPage, true, true)
 
-	if err := w.App.SetRoot(w.Pages, true).EnableMouse(true).Run(); err != nil {
+	return &w
+}
+
+func (w *Window) StartApp() {
+	if err := w.App.SetRoot(w.Pages, true).Run(); err != nil {
 		panic(err)
 	}
+}
+
+func (w *Window) LoadData() {
+	w.SourceControl.Clear()
+	w.Commits.Clear()
+	w.Branches.Clear()
+	w.Stashes.Clear()
+	w.Content.Clear()
+	// w.Status.Clear()
+
+	sourceControl := cmdGitStatus()
+	commits := cmdGitLogCommit()
+	branches := cmdGitBranch()
+	stashes := cmdGitStash()
+	content := cmdGitLogGraph()
+
+	w.queueUpdate(func() {
+		for _, item := range sourceControl {
+			w.SourceControl.AddItem(item, "", 0, w.createModalSourceControl(item))
+		}
+		w.setFocus(w.SourceControl)
+
+		for _, item := range commits {
+			w.Commits.AddItem(item, "", 0, nil)
+		}
+
+		for _, item := range branches {
+			w.Branches.AddItem(item, "", 0, nil)
+		}
+
+		for _, item := range stashes {
+			w.Stashes.AddItem(item, "", 0, nil)
+		}
+
+		for _, item := range content {
+			w.Content.AddItem(item, "", 0, nil)
+		}
+	})
+}
+
+func (w *Window) queueUpdate(f func()) {
+	go func() {
+		w.App.QueueUpdate(f)
+	}()
 }

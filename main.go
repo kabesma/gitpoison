@@ -15,7 +15,8 @@ type Lane struct {
 }
 
 func main() {
-	poison.Execute()
+	w := poison.Execute()
+	w.StartApp()
 }
 
 func maintenance() {
@@ -44,7 +45,6 @@ func maintenance() {
 	// Create the first page
 	page1 := tview.NewFlex().SetDirection(tview.FlexColumn).
 		AddItem(grid, 0, 1, true)
-		// AddItem(tview.NewBox().SetBorder(true).SetTitle("Page 1 - Box 2"), 0, 1, true)
 
 	// Create the second page
 	page2 := tview.NewFlex().SetDirection(tview.FlexRow).

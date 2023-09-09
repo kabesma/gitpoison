@@ -34,8 +34,10 @@ func (w *Window) setupKeyboard() {
 			w.setFocus(w.Stashes)
 		case KeyMapping[KeyStatus]:
 			w.setFocus(w.Status)
-		// case tcell.KeyCtrlR:
-		// w.LoadData()
+		case tcell.KeyCtrlO:
+			w.createModalSelected("All")
+		case tcell.KeyCtrlR:
+			w.LoadData()
 		// case tcell.KeyCtrlF:
 		// w.toggleFocusMode()
 		// case tcell.KeyEscape:

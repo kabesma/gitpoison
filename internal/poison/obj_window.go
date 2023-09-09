@@ -11,22 +11,6 @@ import (
 	"github.com/rivo/tview"
 )
 
-func (w *Window) CreateList(commmand func() []string, action func(string) func()) *tview.List {
-	list := tview.NewList().
-		ShowSecondaryText(false)
-
-	status := commmand()
-	for _, item := range status {
-		if action == nil {
-			list.AddItem(item, "", 0, nil)
-		} else {
-			list.AddItem(item, "", 0, action(item))
-		}
-	}
-
-	return list
-}
-
 func (w *Window) CreateView(command func() []string) *tview.TextView {
 	text := tview.NewTextView().
 		SetTextAlign(tview.AlignLeft).

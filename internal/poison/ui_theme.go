@@ -5,7 +5,6 @@
 package poison
 
 import (
-	"strconv"
 	"strings"
 )
 
@@ -60,7 +59,7 @@ func colorizeStatusEntry(statusEntry string) string {
 				}
 			}
 			// return result[0:countIndex] + " " + strconv.Itoa(countIndex)
-			return info + changed + stagged + "[-] " + parts[1] + strconv.Itoa(countIndex)
+			return info + changed + stagged + "[-] " + parts[1] //+ strconv.Itoa(countIndex)
 		}
 
 		if res := strings.SplitN(parts[1], " ", 2); len(res) == 2 {

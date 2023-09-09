@@ -117,3 +117,26 @@ func cmdGitBranchCurrent() []string {
 
 	return status
 }
+
+func cmdGitAddItem(item string) string {
+	if item == "All" {
+		cmd := exec.Command("git", "add", ".")
+		output, err := cmd.CombinedOutput()
+		if err != nil {
+			return "Error executing 'git add .'\n command : " + err.Error()
+		}
+		return "You have added " + item + "\n" + string(output)
+	}
+
+	split := strings.SplitN(item, " ", 2)
+	if len(split) == 2 {
+		cmd := exec.Command("git", "add", split[1])
+		output, err := cmd.CombinedOutput()
+		if err != nil {
+			return "Error executing 'git add'\n command : " + err.Error()
+		}
+		return "You have added " + item + "\n" + string(output)
+	}
+
+	return "Error executing 'git add'"
+}
