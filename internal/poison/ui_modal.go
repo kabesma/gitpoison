@@ -17,7 +17,9 @@ var (
 
 func (w *Window) createModalSourceControl(item string) func() {
 	return func() {
-		if strings.HasPrefix(item, "(Staged)") {
+		if item == "All" {
+			w.createModalSelected(item, []string{"Add", "Restore", "Cancel"})
+		} else if strings.HasPrefix(item, "(Staged)") {
 			w.createModalSelected(item, []string{"Cancel", "Restore", "Diff"})
 		} else {
 			w.createModalSelected(item, []string{"Add", "Discard", "Diff", "Cancel"})
@@ -49,4 +51,19 @@ func (w *Window) createModalOk(item string) {
 		})
 	w.Pages.AddPage("modalOk", w.ModalOk, true, true)
 	w.Pages.ShowPage("modalOk")
+}
+
+func (w *Window) createModalConfirm(exe func()) {
+	w.ModalOk = tview.NewModal().
+		SetText(fmt.Sprintf("Are you sure for this action?")).
+		AddButtons([]string{"Yes", "No"}).
+		SetDoneFunc(func(buttonIndex int, buttonLabel string) {
+			if w.buttonModalConfirm(buttonLabel) {
+				exe()
+			} else {
+				w.createModalOk("You have cancelled")
+			}
+		})
+	w.Pages.AddPage("modalConfirm", w.ModalOk, true, true)
+	w.Pages.ShowPage("modalConfirm")
 }

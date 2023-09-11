@@ -15,12 +15,16 @@ func (w *Window) buttonModalSourceControl(buttonLabel, item string) (str string,
 		w.createModalOk(cmd)
 		w.Pages.HidePage("modalBasicGit")
 	case "Restore":
-		restore := cmdGitRestoreStaged(item)
-		w.createModalOk(restore)
+		w.createModalConfirm(func() {
+			restore := cmdGitRestoreStaged(item)
+			w.createModalOk(restore)
+		})
 		w.Pages.HidePage("modalBasicGit")
 	case "Discard":
-		restore := cmdGitRestoreChanged(item)
-		w.createModalOk(restore)
+		w.createModalConfirm(func() {
+			restore := cmdGitRestoreChanged(item)
+			w.createModalOk(restore)
+		})
 		w.Pages.HidePage("modalBasicGit")
 	case "Diff":
 	}
@@ -33,6 +37,17 @@ func (w *Window) buttonModalAddItem(buttonLabel string) (str string, err error) 
 		w.LoadData()
 		w.Pages.ShowPage("page1")
 		w.Pages.HidePage("modalOk")
+		w.Pages.HidePage("modalConfirm")
+	}
+	return
+}
+
+func (w *Window) buttonModalConfirm(buttonLabel string) (b bool) {
+	switch buttonLabel {
+	case "Yes":
+		b = true
+	case "No":
+		b = false
 	}
 	return
 }
