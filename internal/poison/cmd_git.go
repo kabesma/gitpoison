@@ -127,7 +127,7 @@ func cmdGitCommit(message string) string {
 		return "Error executing 'git commit'\n command : " + err.Error()
 	}
 
-	return "Successfully executed 'git commit'"
+	return "Successfully executed"
 }
 
 func cmdGitAddItem(item string) string {
