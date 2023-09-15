@@ -88,6 +88,8 @@ func (w *Window) setupKeyboard() {
 func (w *Window) handlerCommit(event *tcell.EventKey) *tcell.EventKey {
 	switch event.Key() {
 	case tcell.KeyEnter:
+		w.Pages.ShowPage("page1")
+		w.Pages.HidePage("modalCommit")
 		message := w.ModalInput.InputField.GetText()
 		w.createModalOk(cmdGitCommit(message))
 	case tcell.KeyCtrlK:
