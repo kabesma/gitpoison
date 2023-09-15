@@ -4,7 +4,11 @@
 // @Update
 package poison
 
-import "github.com/rivo/tview"
+import (
+	"kabesma/gitpoison/internal/component"
+
+	"github.com/rivo/tview"
+)
 
 type Window struct {
 	// Main Layout
@@ -22,6 +26,12 @@ type Window struct {
 	Content       *tview.List
 	// Content       *tview.TextView
 	Status *tview.TextView
+
+	// Commit
+	Message *tview.InputField
+
+	// Custom Modal
+	ModalInput *component.CustomModal
 
 	// Layer Page
 	MainPage *tview.Flex

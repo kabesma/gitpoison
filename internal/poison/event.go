@@ -5,6 +5,9 @@
 package poison
 
 import (
+	"fmt"
+	"os"
+
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
 )
@@ -38,6 +41,8 @@ func (w *Window) setupKeyboard() {
 			w.createModalSelected("All", []string{"Add", "Discard", "Diff", "Cancel"})
 		case tcell.KeyCtrlR:
 			w.LoadData()
+		case tcell.KeyCtrlP:
+			w.createModalCommit()
 		// case tcell.KeyCtrlF:
 		// w.toggleFocusMode()
 		// case tcell.KeyEscape:
@@ -78,6 +83,21 @@ func (w *Window) setupKeyboard() {
 	// }
 	// return event
 	// })
+}
+
+func (w *Window) handlerCommit(event *tcell.EventKey) *tcell.EventKey {
+	switch event.Key() {
+	case tcell.KeyEnter:
+		message := w.ModalInput.InputField.GetText()
+		w.createModalOk(cmdGitCommit(message))
+	case tcell.KeyCtrlK:
+		fmt.Fprintf(os.Stderr, "You Commited and Pushed")
+	case tcell.KeyEscape:
+		w.Pages.ShowPage("page1")
+		w.Pages.HidePage("modalCommit")
+	}
+
+	return event
 }
 
 func (w *Window) setFocus(p tview.Primitive) {

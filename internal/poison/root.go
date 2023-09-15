@@ -57,6 +57,8 @@ func Execute() *Window {
 	w.Content = tview.NewList().ShowSecondaryText(false)
 
 	w.Status = w.CreateView(cmdGitBranchCurrent)
+
+	w.Message = tview.NewInputField()
 	// tview.NewTextView().
 	// SetTextAlign(tview.AlignLeft).
 	// SetTextColor(tcell.ColorGray)
@@ -67,6 +69,7 @@ func Execute() *Window {
 	w.Stashes.SetTitle(TitleStashes).SetBorder(true)
 	w.Content.SetTitle(TitleContent).SetBorder(true)
 	w.Status.SetTitle(TitleStatus).SetBorder(true)
+	w.Message.SetTitle("MESSAGE").SetBorder(true)
 
 	sidebar := tview.NewGrid().
 		SetRows(3, 0, 0, 0).
@@ -100,7 +103,8 @@ func Execute() *Window {
 }
 
 func (w *Window) StartApp() {
-	if err := w.App.SetRoot(w.Pages, true).Run(); err != nil {
+	// w.App.Draw()
+	if err := w.App.SetRoot(w.Pages, true).EnableMouse(true).Run(); err != nil {
 		panic(err)
 	}
 }

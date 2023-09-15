@@ -119,6 +119,17 @@ func cmdGitBranchCurrent() []string {
 	return status
 }
 
+func cmdGitCommit(message string) string {
+	cmd := exec.Command("git", "commit", "-m", message)
+
+	_, err := cmd.CombinedOutput()
+	if err != nil {
+		return "Error executing 'git commit'\n command : " + err.Error()
+	}
+
+	return "Successfully executed 'git commit'"
+}
+
 func cmdGitAddItem(item string) string {
 	if item == "All" {
 		cmd := exec.Command("git", "add", ".")

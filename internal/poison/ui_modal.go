@@ -6,6 +6,7 @@ package poison
 
 import (
 	"fmt"
+	"kabesma/gitpoison/internal/component"
 	"strings"
 
 	"github.com/rivo/tview"
@@ -66,4 +67,12 @@ func (w *Window) createModalConfirm(exe func()) {
 		})
 	w.Pages.AddPage("modalConfirm", w.ModalOk, true, true)
 	w.Pages.ShowPage("modalConfirm")
+}
+
+func (w *Window) createModalCommit() {
+	w.ModalInput = component.NewCustomModal()
+	w.ModalInput.SetInputCapture(w.handlerCommit)
+
+	w.Pages.AddPage("modalCommit", w.ModalInput, true, true)
+	w.Pages.ShowPage("modalCommit")
 }
