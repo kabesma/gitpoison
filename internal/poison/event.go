@@ -42,20 +42,7 @@ func (w *Window) setupKeyboard() {
 			w.LoadData()
 		case tcell.KeyCtrlP:
 			w.createModalCommit()
-		case tcell.KeyCtrlF:
-			w.createModalConfirm(func() {
-				var wg sync.WaitGroup
-				wg.Add(1)
-				message := w.ModalInput.InputField.GetText()
-				cmdGitCommit(message)
-				aaaa, err := cmdGitPush(w.BranchNow, &wg)
-				if err != nil {
-					w.createModalOk(err.Error())
-				}
-				w.createModalOk("Successfully executed\n" + aaaa)
-				w.Pages.HidePage("modalConfirm")
-
-			})
+		// case tcell.KeyCtrlF:
 		// w.toggleFocusMode()
 		// case tcell.KeyEscape:
 		// if w.FocusMode {
