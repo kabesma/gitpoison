@@ -55,13 +55,13 @@ func (w *Window) setupKeyboard() {
 				go func() {
 					wg.Wait() // Tunggu sampai semua goroutine selesai
 					isDone = true
+					w.createModalOk("Successfully executed")
+					w.Pages.HidePage("modalConfirm")
 				}()
 
 				for !isDone {
 					// Tunggu sampai isDone menjadi true
 				}
-				w.createModalOk("Successfully executed")
-				w.Pages.HidePage("modalConfirm")
 			})
 		// w.toggleFocusMode()
 		// case tcell.KeyEscape:
