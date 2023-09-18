@@ -9,6 +9,7 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+	"sync"
 )
 
 func cmdGitLogCommit() []string {
@@ -124,7 +125,8 @@ func cmdGitCommit(message string) (string, error) {
 	return "Successfully executed", nil
 }
 
-func cmdGitPush(branch string) (string, error) {
+func cmdGitPush(branch string, wg *sync.WaitGroup) (string, error) {
+	defer wg.Done()
 	cmd := exec.Command("git", "push", "origin", branch)
 
 	_, err := cmd.CombinedOutput()
