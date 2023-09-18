@@ -47,7 +47,7 @@ func (w *Window) createModalOk(item string) {
 		AddButtons([]string{"Oke"}).
 		SetDoneFunc(func(buttonIndex int, buttonLabel string) {
 			if _, err := w.buttonModalAddItem(buttonLabel); err != nil {
-				w.App.Stop() // is temporary action
+				w.LoadData()
 			}
 		})
 	w.Pages.AddPage("modalOk", w.ModalOk, true, true)
