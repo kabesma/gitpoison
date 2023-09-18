@@ -96,6 +96,8 @@ func (w *Window) handlerCommit(event *tcell.EventKey) *tcell.EventKey {
 		}
 		w.createModalOk(strMessage)
 	case tcell.KeyCtrlK:
+		var isDone bool
+
 		w.createModalConfirm(func() {
 			var wg sync.WaitGroup
 			wg.Add(1)
@@ -104,6 +106,14 @@ func (w *Window) handlerCommit(event *tcell.EventKey) *tcell.EventKey {
 
 			go cmdGitPush(w.BranchNow, &wg)
 			wg.Wait()
+			go func() {
+				wg.Wait() // Tunggu sampai semua goroutine selesai
+				isDone = true
+			}()
+
+			for !isDone {
+				// Tunggu sampai isDone menjadi true
+			}
 			w.createModalOk("Successfully executed")
 			w.Pages.HidePage("modalConfirm")
 		})
