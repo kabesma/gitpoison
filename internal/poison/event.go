@@ -94,6 +94,8 @@ func (w *Window) handlerCommit(event *tcell.EventKey) *tcell.EventKey {
 		}
 		w.createModalOk(strMessage)
 	case tcell.KeyCtrlK:
+		w.Pages.HidePage("modalCommit")
+		w.Pages.ShowPage("page1")
 		w.createModalConfirm(func() {
 			message := w.ModalInput.InputField.GetText()
 			if _, err := cmdGitCommit(message); err != nil {
@@ -104,8 +106,7 @@ func (w *Window) handlerCommit(event *tcell.EventKey) *tcell.EventKey {
 				return
 			}
 			w.createModalOk(strMessage)
-			w.Pages.ShowPage("page1")
-			w.Pages.HidePage("modalCommit")
+			w.Pages.HidePage("modalConfirm")
 			w.LoadData()
 		})
 	case tcell.KeyEscape:
