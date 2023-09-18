@@ -43,25 +43,16 @@ func (w *Window) setupKeyboard() {
 		case tcell.KeyCtrlP:
 			w.createModalCommit()
 		case tcell.KeyCtrlF:
-			isDone := false
 			w.createModalConfirm(func() {
 				var wg sync.WaitGroup
 				wg.Add(1)
 				message := w.ModalInput.InputField.GetText()
 				cmdGitCommit(message)
 
-				go cmdGitPush(w.BranchNow, &wg)
-				wg.Wait()
-				go func() {
-					wg.Wait() // Tunggu sampai semua goroutine selesai
-					isDone = true
-					w.createModalOk("Successfully executed")
-					w.Pages.HidePage("modalConfirm")
-				}()
+				cmdGitPush(w.BranchNow, &wg)
+				w.createModalOk("Successfully executed")
+				w.Pages.HidePage("modalConfirm")
 
-				for !isDone {
-					// Tunggu sampai isDone menjadi true
-				}
 			})
 		// w.toggleFocusMode()
 		// case tcell.KeyEscape:
