@@ -104,10 +104,10 @@ func (w *Window) handlerCommit(event *tcell.EventKey) *tcell.EventKey {
 				return
 			}
 			w.createModalOk(strMessage)
+			w.Pages.ShowPage("page1")
+			w.Pages.HidePage("modalCommit")
+			w.LoadData()
 		})
-		w.Pages.ShowPage("page1")
-		w.Pages.HidePage("modalCommit")
-		w.LoadData()
 	case tcell.KeyEscape:
 		w.Pages.ShowPage("page1")
 		w.Pages.HidePage("modalCommit")
