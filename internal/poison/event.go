@@ -5,8 +5,6 @@
 package poison
 
 import (
-	"sync"
-
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
 )
@@ -96,25 +94,17 @@ func (w *Window) handlerCommit(event *tcell.EventKey) *tcell.EventKey {
 		}
 		w.createModalOk(strMessage)
 	case tcell.KeyCtrlK:
-		var isDone bool
-
 		w.createModalConfirm(func() {
-			var wg sync.WaitGroup
-			wg.Add(1)
 			message := w.ModalInput.InputField.GetText()
 			cmdGitCommit(message)
 
-			go cmdGitPush(w.BranchNow, &wg)
-			wg.Wait()
-			go func() {
-				wg.Wait() // Tunggu sampai semua goroutine selesai
-				isDone = true
-			}()
+			strMessage, err := cmdGitPush(w.BranchNow)
 
-			for !isDone {
-				// Tunggu sampai isDone menjadi true
+			if err != nil {
+				w.createModalOk("Error executing 'git push'\n command : " + err.Error())
 			}
-			w.createModalOk("Successfully executed")
+
+			w.createModalOk("Successfully executed\n" + strMessage)
 			w.Pages.HidePage("modalConfirm")
 		})
 		w.Pages.HidePage("modalCommit")
