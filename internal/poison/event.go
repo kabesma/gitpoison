@@ -5,9 +5,6 @@
 package poison
 
 import (
-	"fmt"
-	"os"
-
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
 )
@@ -91,12 +88,30 @@ func (w *Window) handlerCommit(event *tcell.EventKey) *tcell.EventKey {
 		w.Pages.ShowPage("page1")
 		w.Pages.HidePage("modalCommit")
 		message := w.ModalInput.InputField.GetText()
-		w.createModalOk(cmdGitCommit(message))
+		strMessage, err := cmdGitCommit(message)
+		if err != nil {
+			return event
+		}
+		w.createModalOk(strMessage)
 	case tcell.KeyCtrlK:
-		fmt.Fprintf(os.Stderr, "You Commited and Pushed")
+		w.createModalConfirm(func() {
+			message := w.ModalInput.InputField.GetText()
+			if _, err := cmdGitCommit(message); err != nil {
+				return
+			}
+			strMessage, err := cmdGitPush(w.BranchNow)
+			if err != nil {
+				return
+			}
+			w.createModalOk(strMessage)
+		})
+		w.Pages.ShowPage("page1")
+		w.Pages.HidePage("modalCommit")
+		w.LoadData()
 	case tcell.KeyEscape:
 		w.Pages.ShowPage("page1")
 		w.Pages.HidePage("modalCommit")
+		w.LoadData()
 	}
 
 	return event

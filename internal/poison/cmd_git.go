@@ -39,7 +39,6 @@ func cmdGitStatus() []string {
 
 	status := strings.Split(string(output), "\n")
 	for i, item := range status {
-		// status[i] = item
 		status[i] = themeColorSourceControl(item)
 	}
 
@@ -102,32 +101,38 @@ func cmdGitLogGraph() []string {
 	return status
 }
 
-func cmdGitBranchCurrent() []string {
+func cmdGitBranchCurrent() string {
 	cmd := exec.Command("git", "branch", "--show-current")
 
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error executing 'git branch' command: %s\n", err)
-		return []string{}
+		return ""
 	}
 
-	status := strings.Split(string(output), "\n")
-	for i, item := range status {
-		status[i] = item
-	}
-
-	return status
+	return string(output)
 }
 
-func cmdGitCommit(message string) string {
+func cmdGitCommit(message string) (string, error) {
 	cmd := exec.Command("git", "commit", "-m", message)
 
 	_, err := cmd.CombinedOutput()
 	if err != nil {
-		return "Error executing 'git commit'\n command : " + err.Error()
+		return "Error executing 'git commit'\n command : " + err.Error(), err
 	}
 
-	return "Successfully executed"
+	return "Successfully executed", nil
+}
+
+func cmdGitPush(branch string) (string, error) {
+	cmd := exec.Command("git", "push", "origin", branch)
+
+	_, err := cmd.CombinedOutput()
+	if err != nil {
+		return "Error executing 'git push'\n command : " + err.Error(), err
+	}
+
+	return "Successfully executed", nil
 }
 
 func cmdGitAddItem(item string) string {

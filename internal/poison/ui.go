@@ -36,6 +36,9 @@ type Window struct {
 	// Layer Page
 	MainPage *tview.Flex
 
+	// String
+	BranchNow string
+
 	// Mode Focus
 	FocusMode bool
 }

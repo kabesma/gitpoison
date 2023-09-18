@@ -70,9 +70,16 @@ func (w *Window) createModalConfirm(exe func()) {
 }
 
 func (w *Window) createModalCommit() {
-	w.ModalInput = component.NewCustomModal()
-	w.ModalInput.SetInputCapture(w.handlerCommit)
+	status := cmdGitStatus()
 
-	w.Pages.AddPage("modalCommit", w.ModalInput, true, true)
-	w.Pages.ShowPage("modalCommit")
+	if len(status) > 1 {
+		w.ModalInput = component.NewCustomModal()
+		w.ModalInput.SetInputCapture(w.handlerCommit)
+
+		w.Pages.AddPage("modalCommit", w.ModalInput, true, true)
+		w.Pages.ShowPage("modalCommit")
+	} else {
+		w.createModalOk("You have nothing to commit")
+	}
+
 }
