@@ -95,11 +95,12 @@ func (w *Window) handlerCommit(event *tcell.EventKey) *tcell.EventKey {
 		w.createModalOk(strMessage)
 	case tcell.KeyCtrlK:
 		w.createModalConfirm(func() {
-			message := w.ModalInput.InputField.GetText()
-			cmdGitCommit(message)
+			// message := w.ModalInput.InputField.GetText()
+			// cmdGitCommit(message)
 
-			strMessage, _ := cmdGitPush(w.BranchNow)
-			w.createModalOk(strMessage)
+			// strMessage, _ := cmdGitPush(w.BranchNow)
+			// w.createModalOk(strMessage)
+			w.createModalOk(w.BranchNow)
 			w.Pages.HidePage("modalConfirm")
 		})
 		w.Pages.HidePage("modalCommit")
