@@ -48,9 +48,11 @@ func (w *Window) setupKeyboard() {
 				wg.Add(1)
 				message := w.ModalInput.InputField.GetText()
 				cmdGitCommit(message)
-
-				cmdGitPush(w.BranchNow, &wg)
-				w.createModalOk("Successfully executed")
+				aaaa, err := cmdGitPush(w.BranchNow, &wg)
+				if err != nil {
+					w.createModalOk(err.Error())
+				}
+				w.createModalOk("Successfully executed\n" + aaaa)
 				w.Pages.HidePage("modalConfirm")
 
 			})
