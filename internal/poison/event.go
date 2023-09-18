@@ -105,7 +105,6 @@ func (w *Window) handlerCommit(event *tcell.EventKey) *tcell.EventKey {
 			go cmdGitPush(w.BranchNow, &wg)
 			wg.Wait()
 			w.createModalOk("Successfully executed")
-			// w.createModalOk(w.BranchNow)
 			w.Pages.HidePage("modalConfirm")
 		})
 		w.Pages.HidePage("modalCommit")
