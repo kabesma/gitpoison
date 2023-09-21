@@ -45,7 +45,7 @@ You can find the complete documentation at [project documentation](#).
 If you have any questions or further feedback, you can reach out to us via [email](info@kabesma.org) or through social media: [Twitter](#), [Facebook](https://www.facebook.com/kabesma.org).
 
 ## Donation
-Please Support US on [GitPoison](https://invoice.xendit.co/donation/poison).
+Please Support US on [GitPoison](https://invoice.xendit.co/od/git-poison).
 
 ---
 
