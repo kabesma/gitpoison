@@ -21,7 +21,8 @@ This project is currently in the development phase. We are working diligently to
 - [x] git add
 - [x] git restore
 - [x] git stash save
-- [ ] git commit
+- [x] git commit
+- [ ] git push
 - [ ] git stash pop
 - [ ] Etc...
 
