@@ -138,15 +138,18 @@ func getRepoPath() (string, error) {
 }
 
 // Fungsi untuk melakukan git push
-func cmdGitPush(branch string) (string, error) {
+func cmdGitPush() (string, error) {
 	// Ambil repo path secara dinamis
 	repoPath, err := getRepoPath()
 	if err != nil {
 		return fmt.Sprintf("Error: %v", err), err
 	}
 
+  // Panggil current branch now
+  currentBranch := cmdGitBranchCurrent()
+
 	// Buat command git push
-	cmd := exec.Command("git", "push", "origin", branch)
+	cmd := exec.Command("git", "push", "origin", currentBranch)
 	cmd.Dir = repoPath // Set working directory ke repo Git
 
 	// Jalankan command dan tangkap output
