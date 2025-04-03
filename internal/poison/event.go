@@ -39,6 +39,7 @@ func (w *Window) setupKeyboard() {
 		case tcell.KeyCtrlR:
 			w.LoadData()
 		case tcell.KeyCtrlP:
+      //this is for update
 			w.createModalCommit()
 		// case tcell.KeyCtrlF:
 		// w.toggleFocusMode()
