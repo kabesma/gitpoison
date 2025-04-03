@@ -9,6 +9,7 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+  "bytes"
 )
 
 func cmdGitLogCommit() []string {
@@ -124,16 +125,48 @@ func cmdGitCommit(message string) (string, error) {
 	return "Successfully executed", nil
 }
 
-func cmdGitPush(branch string) (string, error) {
-	cmd := exec.Command("git", "push", "origin", branch)
-
-	_, err := cmd.CombinedOutput()
+// Fungsi untuk mendapatkan path repository Git saat ini
+func getRepoPath() (string, error) {
+	cmd := exec.Command("git", "rev-parse", "--show-toplevel")
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	err := cmd.Run()
 	if err != nil {
-		return "Error executing 'git push'\n command : " + err.Error(), err
+		return "", fmt.Errorf("Gagal mendapatkan repo path: %v", err)
+	}
+	return strings.TrimSpace(out.String()), nil
+}
+
+// Fungsi untuk melakukan git push
+func cmdGitPush(branch string) (string, error) {
+	// Ambil repo path secara dinamis
+	repoPath, err := getRepoPath()
+	if err != nil {
+		return fmt.Sprintf("Error: %v", err), err
+	}
+
+	// Buat command git push
+	cmd := exec.Command("git", "push", "origin", branch)
+	cmd.Dir = repoPath // Set working directory ke repo Git
+
+	// Jalankan command dan tangkap output
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		return fmt.Sprintf("Error executing 'git push': %s\nOutput: %s", err.Error(), string(output)), err
 	}
 
 	return "Successfully executed", nil
 }
+// func cmdGitPush(branch string) (string, error) {
+// 	cmd := exec.Command("git", "push", "origin", branch)
+//
+// 	_, err := cmd.CombinedOutput()
+// 	if err != nil {
+// 		return "Error executing 'git push'\n command : " + err.Error(), err
+// 	}
+//
+// 	return "Successfully executed", nil
+// }
 
 func cmdGitAddItem(item string) string {
 	if item == "All" {
