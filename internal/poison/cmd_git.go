@@ -5,11 +5,11 @@
 package poison
 
 import (
+	"bytes"
 	"fmt"
 	"os"
 	"os/exec"
 	"strings"
-  "bytes"
 )
 
 func cmdGitLogCommit() []string {
@@ -157,16 +157,6 @@ func cmdGitPush(branch string) (string, error) {
 
 	return "Successfully executed", nil
 }
-// func cmdGitPush(branch string) (string, error) {
-// 	cmd := exec.Command("git", "push", "origin", branch)
-//
-// 	_, err := cmd.CombinedOutput()
-// 	if err != nil {
-// 		return "Error executing 'git push'\n command : " + err.Error(), err
-// 	}
-//
-// 	return "Successfully executed", nil
-// }
 
 func cmdGitAddItem(item string) string {
 	if item == "All" {
