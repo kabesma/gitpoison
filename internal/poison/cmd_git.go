@@ -137,6 +137,18 @@ func getRepoPath() (string, error) {
 	return strings.TrimSpace(out.String()), nil
 }
 
+// Fungsi untuk mendapatkan nama branch aktif
+func getCurrentBranch() (string, error) {
+	cmd := exec.Command("git", "symbolic-ref", "--short", "HEAD")
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	err := cmd.Run()
+	if err != nil {
+		return "", fmt.Errorf("Gagal mendapatkan branch aktif: %v", err)
+	}
+	return strings.TrimSpace(out.String()), nil
+}
+
 // Fungsi untuk melakukan git push
 func cmdGitPush() (string, error) {
 	// Ambil repo path secara dinamis
@@ -146,7 +158,10 @@ func cmdGitPush() (string, error) {
 	}
 
   // Panggil current branch now
-  currentBranch := cmdGitBranchCurrent()
+  currentBranch, err := getCurrentBranch()
+  if err != nil {
+		return "", fmt.Errorf("Gagal mengambil branch sekarang : %v", err)
+  }
 
 	// Buat command git push
 	cmd := exec.Command("git", "push", "origin", currentBranch)
