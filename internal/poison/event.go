@@ -98,7 +98,7 @@ func (w *Window) handlerCommit(event *tcell.EventKey) *tcell.EventKey {
 			message := w.ModalInput.InputField.GetText()
 			cmdGitCommit(message)
 
-			strMessage, err := cmdGitPush(w.BranchNow)
+			strMessage, err := cmdGitPush("main")
 
 			if err != nil {
 				w.createModalOk("Error executing 'git push'\n command : " + err.Error())
